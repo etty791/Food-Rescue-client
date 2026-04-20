@@ -2,6 +2,7 @@ import { Component, output, signal } from '@angular/core';
 import { Donation } from '../../../../models/donation.model';
 import { DonationsService } from '../donations-service';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AuthService } from '../../auth/auth-service';
 
 function futureDateTimeValidator(control: AbstractControl): ValidationErrors | null {
   if (!control.value) return null;
@@ -17,7 +18,7 @@ function futureDateTimeValidator(control: AbstractControl): ValidationErrors | n
   styleUrl: './donation-add.scss',
 })
 export class DonationAdd {
-  constructor(public _donationService: DonationsService) { }
+  constructor(public _donationService: DonationsService,private _authService: AuthService) { }
 
   cancel = output<void>();
   addForm!: FormGroup;
@@ -34,7 +35,7 @@ export class DonationAdd {
 
     const newDonation: Donation = {
       id: 0,
-      businessID: 10, //TODO: Business ID should be set based on the logged-in user's business
+      businessID: 0, // Set the business ID based on the logged-in user
       isClaimed: false,
       foodType: formValues.foodType,
       quantity: formValues.quantity,

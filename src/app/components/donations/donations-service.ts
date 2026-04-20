@@ -10,7 +10,7 @@ export class DonationsService {
 view=signal<'list' | 'details' | 'edit' | 'add'>('list');
  
 donations = signal<Donation[]>([]);
-  constructor(private _httpClient: HttpClient) {}
+constructor(private _httpClient: HttpClient) {}
 getDonations(): Observable<Donation[]> {
   return this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation');
 }

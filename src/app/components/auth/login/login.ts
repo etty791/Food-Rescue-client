@@ -11,7 +11,7 @@ import { AuthService } from '../auth-service';
 })
 export class Login {
   logInForm!:FormGroup;
-  constructor(private _authService: AuthService,private router: Router) {}
+  constructor(private _authService: AuthService) {}
 
   ngOnInit() {
     this.logInForm = new FormGroup({
@@ -22,16 +22,13 @@ export class Login {
 
   submit() {
     if (this.logInForm.valid) {
-      // קריאה לפונקציית ה-login בסרוויס, והעברת הערכים מהטופס
         this._authService.login( this.logInForm.value.userName, this.logInForm.value.password).subscribe({
-        // מה קורה כשהשרת מחזיר תשובה חיובית (טוקן)
         next: (data) => {
           console.log('התחברות הצליחה!');
-          // נעביר את המשתמש לדף הבית / לדשבורד
-          // this.router.navigate(['/']); 
+          localStorage.setItem('token', data); // שמירת הטוקן ב-localStorage
+          this._authService.loadUserFromToken();
         },
 
-        // מה קורה כשהשרת מחזיר שגיאה (למשל 401 - סיסמה שגויה)
         error: (err) => {
           console.error('שגיאה בהתחברות', err);
           alert('שם משתמש או סיסמה שגויים, נסה שוב.');
