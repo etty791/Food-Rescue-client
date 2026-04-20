@@ -1,0 +1,82 @@
+<div class="form-card">
+    <div class="header">
+        <h3> הרשמה</h3>
+    </div>
+
+    <form [formGroup]="userForm" (ngSubmit)="submit()">
+        <div class="input-group">
+            <label> שם משתמש:</label>
+            <input formControlName="userName" class="form-input" />
+            @if (userForm.get('userName')?.invalid && userForm.get('userName')?.touched) {
+            <span class="error-msg">חובה להזין שם משתמש</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>סיסמה:</label>
+            <input formControlName="password" type="password" class="form-input" />
+            @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+            <span class="error-msg">חובה להזין סיסמה</span>
+            }
+        </div>
+        
+        <div class="input-group">
+            <label>תפקיד:</label>
+            <select formControlName="role" class="form-input">
+                <option value="">בחר תפקיד</option>
+                <option value="charity">ארגון צדקה</option>
+                <option value="business">עסק</option>
+            </select>
+            @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
+            <span class="error-msg">חובה לבחור תפקיד</span>
+            }
+        </div>
+        @if (userForm.get('role')?.value === 'charity') {
+            <div class="input-group">
+                <label>סוג מזון:</label>
+                <input formControlName="foodType" class="form-input" />
+                @if (userForm.get('foodType')?.invalid && userForm.get('foodType')?.touched) {
+                <span class="error-msg">חובה להזין סוג מזון</span>
+                }
+            </div>
+
+            <div class="input-group">
+                <label>כמות:</label>
+                <input formControlName="quantity" type="number" class="form-input" />
+                @if (userForm.get('quantity')?.invalid && userForm.get('quantity')?.touched) {
+                <span class="error-msg">חובה להזין כמות</span>
+                }
+            </div>
+        }
+
+        <div class="input-group">
+            <label>עיר:</label>
+            <input formControlName="city" class="form-input" />
+            @if (userForm.get('city')?.invalid && userForm.get('city')?.touched) {
+            <span class="error-msg">חובה להזין עיר</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>מייל:</label>
+            <input formControlName="email" class="form-input" />
+            @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+            <span class="error-msg">חובה להזין מייל</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>שם ארגון:</label>
+            <input formControlName="name" class="form-input" />
+            @if (userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+            <span class="error-msg">חובה להזין שם ארגון</span>
+            }
+        </div>
+
+        <div class="footer-actions">
+            <button type="submit" class="btn-save" [disabled]="userForm.invalid"> הרשמה</button>
+            <!-- TODO: add a link to the registration page -->
+            <!-- <button type="button" class="btn-cancel" (click)="this._authService.view.set('list')">ביטול</button> -->
+        </div>
+    </form>
+</div>

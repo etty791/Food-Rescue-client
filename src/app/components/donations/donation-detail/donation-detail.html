@@ -1,0 +1,13 @@
+<div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px;">
+  <h3>סוג מזון: {{ donation.foodType }}</h3>
+  <p>כמות: {{ donation.quantity }} ק"ג</p>
+  <p>סטטוס: {{ donation.isClaimed? "תפוסה" : "זמינה" }}</p>
+  <p>תאריך תפוגה: {{ donation.expirationTime| date: 'dd/MM/yy, HH:mm'}}</p>
+  @if (!donation.isClaimed && showClaimButton){
+    <button (click)="buttonClicked()">תפוס תרומה</button>
+  }
+  @else if (donation.isClaimed) {
+    <span style="color: red; font-weight: bold;">התרומה נתפסה!</span>
+  }
+  
+</div>

@@ -1,0 +1,12 @@
+<h2>רשימת תרומות זמינות</h2>
+
+@for (item of donations(); track item.id) {
+  
+  <app-donation-detail 
+     [donation]="item"
+     (claimDonation)="markAsClaimed($event)">
+  </app-donation-detail>
+
+} @empty {
+  <p>אין תרומות זמינות כרגע.</p>
+}

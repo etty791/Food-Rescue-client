@@ -1,0 +1,43 @@
+<div class="main-wrapper">
+  <div class="header">
+    <h2>התרומות שלי</h2>
+    <button class="add-btn" (click)="_donationService.view.set('add')">תרומה חדשה +</button>
+  </div>
+
+  @if (_donationService.view() === 'list') {
+    <div class="list-container">
+      @for (d of donations(); track d.id) {
+        <div class="donation-item">
+          <span class="donation-name"
+            ><strong>{{ d.foodType }}</strong></span
+          >
+          <div class="actions">
+            <button class="btn-details" (click)="selectedDonation.set(d); _donationService.view.set('details')">
+              פרטים
+            </button>
+            <button
+              class="btn-edit"
+              (click)="selectedDonation.set(d); _donationService.view.set('edit')"
+            >
+              עריכה
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (_donationService.view() === 'details') {
+    <app-donation-detail [donation]="selectedDonation()!" (close)="_donationService.view.set('list')" [showClaimButton]="false"/>
+  }
+
+  @if (_donationService.view() === 'add') {
+    <app-donation-add></app-donation-add>
+  }
+  
+  @if (this._donationService.view() === 'edit') {
+    <app-donation-update
+      [donationToEdit]="selectedDonation()!"   (close)="_donationService.view.set('list')"
+    />
+  }
+</div>

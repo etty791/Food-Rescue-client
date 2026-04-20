@@ -1,0 +1,36 @@
+<div class="form-card">
+    <div class="header">
+        <h3>עריכת פרטי תרומה</h3>
+    </div>
+
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
+        <div class="input-group">
+            <label> סוג מזון:</label>
+            <input formControlName="foodType" class="form-input" />
+            @if (editForm.get('foodType')?.invalid && editForm.get('foodType')?.touched) {
+            <span class="error-msg">השם קצר מדי או חסר</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>כמות:</label>
+            <input formControlName="quantity" class="form-input" />
+            @if (editForm.get('quantity')?.invalid && editForm.get('quantity')?.touched) {
+            <span class="error-msg">הכמות חייבת להיות לפחות 10</span>
+            }
+        </div>
+        <div class="input-group">
+            <label>תאריך תפוגה:</label>
+            <input formControlName="expirationTime" type="datetime-local" class="form-input" />
+            @if (editForm.get('expirationTime')?.invalid && editForm.get('expirationTime')?.touched) {
+            <span class="error-msg">תאריך תפוגה חייב להיות בעתיד</span>
+            }
+        </div>
+
+
+        <div class="footer-actions">
+            <button type="submit" class="btn-save" [disabled]="editForm.invalid">שמור שינויים</button>
+            <button type="button" class="btn-cancel" (click)="this._donationService.view.set('list')">ביטול</button>
+        </div>
+    </form>
+</div>

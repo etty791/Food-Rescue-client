@@ -1,0 +1,29 @@
+<div class="form-card">
+    <div class="header">
+        <h3> התחברות</h3>
+    </div>
+
+    <form [formGroup]="logInForm" (ngSubmit)="submit()">
+        <div class="input-group">
+            <label> שם משתמש:</label>
+            <input formControlName="userName" class="form-input" />
+            @if (logInForm.get('userName')?.invalid && logInForm.get('userName')?.touched) {
+            <span class="error-msg">חובה להזין שם משתמש</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>סיסמה:</label>
+            <input formControlName="password" type="password" class="form-input" />
+            @if (logInForm.get('password')?.invalid && logInForm.get('password')?.touched) {
+            <span class="error-msg">חובה להזין סיסמה</span>
+            }
+        </div>
+
+        <div class="footer-actions">
+            <button type="submit" class="btn-save" [disabled]="logInForm.invalid"> התחבר</button>
+<!-- TODO: add a link to the registration page -->
+            <!-- <button type="button" class="btn-cancel" (click)="this._authService.view.set('list')">ביטול</button> -->
+        </div>
+    </form>
+</div>
