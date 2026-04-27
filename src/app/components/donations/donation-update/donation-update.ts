@@ -2,6 +2,7 @@ import { Component, input, output } from '@angular/core';
 import { AbstractControl, Form, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Donation } from '../../../../models/donation.model';
 import { DonationsService } from '../donations-service';
+import { log } from 'node:console';
 
 function futureDateTimeValidator(control: AbstractControl): ValidationErrors | null {
   if (!control.value) return null;
@@ -23,23 +24,24 @@ export class DonationUpdate {
   ngOnInit(){
     const d=this.donationToEdit();
     let formattedDateTime = '';
-    if (d.expirationTime) {
-      const dateObj = new Date(d.expirationTime);
+    if (d.dateTime) {
+      const dateObj = new Date(d.dateTime);
       dateObj.setMinutes(dateObj.getMinutes() - dateObj.getTimezoneOffset());
       formattedDateTime = dateObj.toISOString().slice(0, 16); 
     }
     this.editForm=new FormGroup({
-      id:new FormControl(d.id),
       foodType:new FormControl(d.foodType,[Validators.required, Validators.minLength(3)]),
       quantity:new FormControl(d.quantity,[Validators.required, Validators.min(10)]),
-      expirationTime:new FormControl(formattedDateTime,[Validators.required, futureDateTimeValidator]),
+      dateTime:new FormControl(d.dateTime,[Validators.required, futureDateTimeValidator]),
     });
   }
   submit(){
+    console.log("Donation to edit:", this.donationToEdit()); // בדוק מה מודפס כאן
     const updatedDonation: Donation = {
-      ...this.editForm.value,
-      expirationTime: new Date(this.editForm.value.expirationTime)
+      ...this.donationToEdit(), // 1. מביא את כל השדות המקוריים שאינם בטופס (כמו businessID ו-isClaimed)
+    ...this.editForm.value     
     };
+    
     this._donationService.updateDonation(updatedDonation);
   }
 }

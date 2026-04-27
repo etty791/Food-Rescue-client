@@ -21,8 +21,8 @@
         </div>
         <div class="input-group">
             <label>תאריך תפוגה:</label>
-            <input formControlName="expirationTime" type="datetime-local" class="form-input" />
-            @if (editForm.get('expirationTime')?.invalid && editForm.get('expirationTime')?.touched) {
+            <input formControlName="dateTime" type="datetime-local" class="form-input" />
+            @if (editForm.get('dateTime')?.invalid && editForm.get('dateTime')?.touched) {
             <span class="error-msg">תאריך תפוגה חייב להיות בעתיד</span>
             }
         </div>

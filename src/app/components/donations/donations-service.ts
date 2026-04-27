@@ -7,27 +7,43 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DonationsService {
-view=signal<'list' | 'details' | 'edit' | 'add'>('list');
- 
-donations = signal<Donation[]>([]);
-constructor(private _httpClient: HttpClient) {}
-getDonations(): Observable<Donation[]> {
-  return this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation');
-}
-addDonation(newDonation: Donation){
+  view = signal<'list' | 'details' | 'edit' | 'add'>('list');
+
+  donations = signal<Donation[]>([]);
+  constructor(private _httpClient: HttpClient) { }
+  getDonations(): Observable<Donation[]> {
+    return this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation');
+  }
+  addDonation(newDonation: Donation) {
     this._httpClient.post('https://localhost:7055/api/Donation', newDonation)
-    .subscribe({
+      .subscribe({
+        next: (response) => {
+          console.log('התרומה נשמרה בהצלחה בשרת!', response);
+          this.getDonations().subscribe(data => {
+            this.donations.set(data);
+          });
+          this.view.set('list');
+        },
+        error: (err) => {
+          console.error('שגיאה בשליחת התרומה לשרת:', err);
+        }
+      });
+  }
+
+  updateDonation(updatedDonation: Donation) {
+    console.log("Donation ID to update:", updatedDonation.id); // בדוק מה מודפס כאן
+    this._httpClient.put(`https://localhost:7055/api/Donation/${updatedDonation.id}`, updatedDonation).subscribe({
       next: (response) => {
         console.log('התרומה נשמרה בהצלחה בשרת!', response);
+        this.getDonations().subscribe(data => {
+          this.donations.set(data);
+        });
         this.view.set('list');
       },
       error: (err) => {
-        console.error('שגיאה בשליחת התרומה לשרת:', err);
+        console.error('שגיאה בעדכון התרומה לשרת:', err);
       }
-    });}
-
-  updateDonation(updatedDonation: Donation) {
-    this._httpClient.put('https://localhost:7055/api/Donation', updatedDonation);
-    this.view.set('list');
+    });
   }
 }
+

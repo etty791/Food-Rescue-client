@@ -35,11 +35,11 @@ export class DonationAdd {
 
     const newDonation: Donation = {
       id: 0,
-      businessID: 0, // Set the business ID based on the logged-in user
+      businessID: this._authService.currentUser()?.UserId, 
       isClaimed: false,
       foodType: formValues.foodType,
       quantity: formValues.quantity,
-      expirationTime: new Date(formValues.expirationTime)
+      dateTime: formValues.expirationTime
     };
 
     this._donationService.addDonation(newDonation);

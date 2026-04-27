@@ -4,6 +4,6 @@ export interface Donation {
   charityID?: number;
   foodType: string;
   quantity: number; 
-  expirationTime: Date; 
+  dateTime: Date; 
   isClaimed: boolean;
 }

@@ -22,6 +22,7 @@ export class DonationListBusiness {
     this._donationService.getDonations().subscribe({
       next: (data) => {
         this.donations.set(data)
+        console.log(data)
       },
       error: (err) => {
         console.error('Error fetching donations:', err);

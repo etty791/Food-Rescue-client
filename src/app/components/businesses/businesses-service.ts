@@ -12,9 +12,9 @@ businesses= signal<Business[]>([
     { id: 12, name: 'חנות ירקות אורגניים', city: ' חיפה', email: 'orgveg1@gmail.com', password: '123456', userName: 'orgveg1' }
   ]);
    donations= signal<Donation[]>([
-    { id: 1, businessID: 10, foodType: 'לחם ומאפים', quantity: 5.5, expirationTime: new Date(), isClaimed: false },
-    { id: 2, businessID: 12, foodType: 'ירקות העונה', quantity: 15, expirationTime: new Date(), isClaimed: true },
-    { id: 3, businessID: 10, foodType: 'מוצרי חלב', quantity: 2, expirationTime: new Date(), isClaimed: false }
+    { id: 1, businessID: 10, foodType: 'לחם ומאפים', quantity: 5.5, dateTime: new Date(), isClaimed: false },
+    { id: 2, businessID: 12, foodType: 'ירקות העונה', quantity: 15, dateTime: new Date(), isClaimed: true },
+    { id: 3, businessID: 10, foodType: 'מוצרי חלב', quantity: 2, dateTime: new Date(), isClaimed: false }
   ]);
 addBusiness(newBusiness: Business) {
     const businessWithId = { ...newBusiness, id: Date.now() };
