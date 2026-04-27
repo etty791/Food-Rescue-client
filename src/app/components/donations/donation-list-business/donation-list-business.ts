@@ -14,19 +14,10 @@ import { error } from 'console';
   styleUrl: './donation-list-business.scss',
 })
 export class DonationListBusiness {
-  donations = signal<Donation[]|null>(null);
+donations = computed(() => this._donationService.donations());
   selectedDonation = signal<Donation | null>(null);
 
   constructor(public _donationService: DonationsService) { }
   ngOnInit() {
-    this._donationService.getDonations().subscribe({
-      next: (data) => {
-        this.donations.set(data)
-        console.log(data)
-      },
-      error: (err) => {
-        console.error('Error fetching donations:', err);
-      }
-    }
-    );
-  }}
+    this._donationService.getDonations();
+  }};

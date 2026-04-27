@@ -11,17 +11,23 @@ export class DonationsService {
 
   donations = signal<Donation[]>([]);
   constructor(private _httpClient: HttpClient) { }
-  getDonations(): Observable<Donation[]> {
-    return this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation');
+  getDonations() {
+     this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation').subscribe({
+      next: (data) => {
+        this.donations.set(data);
+      },
+      error: (err) => {
+        console.error('Error fetching donations:', err);
+      }
+    }
+    );
   }
   addDonation(newDonation: Donation) {
     this._httpClient.post('https://localhost:7055/api/Donation', newDonation)
       .subscribe({
         next: (response) => {
           console.log('התרומה נשמרה בהצלחה בשרת!', response);
-          this.getDonations().subscribe(data => {
-            this.donations.set(data);
-          });
+          this.getDonations();
           this.view.set('list');
         },
         error: (err) => {
@@ -35,9 +41,7 @@ export class DonationsService {
     this._httpClient.put(`https://localhost:7055/api/Donation/${updatedDonation.id}`, updatedDonation).subscribe({
       next: (response) => {
         console.log('התרומה נשמרה בהצלחה בשרת!', response);
-        this.getDonations().subscribe(data => {
-          this.donations.set(data);
-        });
+        this.getDonations();
         this.view.set('list');
       },
       error: (err) => {

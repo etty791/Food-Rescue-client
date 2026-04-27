@@ -1,4 +1,4 @@
-import { Component,computed } from '@angular/core';
+import { Component,computed, signal } from '@angular/core';
 import { Donation } from '../../../../models/donation.model'; 
 import { DonationDetail } from '../donation-detail/donation-detail'; 
 import { DonationsService } from '../donations-service';
@@ -10,12 +10,14 @@ import { DonationsService } from '../donations-service';
   styleUrl: './donation-list-charity.scss'
 })
 export class DonationListCharityComponent {
- 
+   donations = computed<Donation[]|null>(() => this._donationService.donations());
   constructor(public _donationService:DonationsService) {}
-  donations = computed<Donation[]>(() => this._donationService.donations());
+  ngOnInit() {
+    this._donationService.getDonations();
+  }
 
   markAsClaimed(donationId: number) {
-    const foundDonation = this.donations().find(d => d.id === donationId);
+    const foundDonation = this.donations()?.find(d => d.id === donationId);
     if (foundDonation) {
       foundDonation.isClaimed = true;
     }
