@@ -30,7 +30,7 @@
 
         <div class="footer-actions">
             <button type="submit" class="btn-save" [disabled]="editForm.invalid">שמור שינויים</button>
-            <button type="button" class="btn-cancel" (click)="this._donationService.view.set('list')">ביטול</button>
+            <button type="button" class="btn-cancel" (click)="this.navigateBack()">ביטול</button>
         </div>
     </form>
 </div>

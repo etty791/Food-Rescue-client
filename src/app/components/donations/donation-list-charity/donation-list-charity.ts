@@ -2,6 +2,7 @@ import { Component,computed, signal } from '@angular/core';
 import { Donation } from '../../../../models/donation.model'; 
 import { DonationDetail } from '../donation-detail/donation-detail'; 
 import { DonationsService } from '../donations-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-donation-list-charity',
@@ -11,7 +12,7 @@ import { DonationsService } from '../donations-service';
 })
 export class DonationListCharityComponent {
    donations = computed<Donation[]|null>(() => this._donationService.donations());
-  constructor(public _donationService:DonationsService) {}
+  constructor(private _donationService:DonationsService,private _route: ActivatedRoute) {}
   ngOnInit() {
     this._donationService.getDonations();
   }

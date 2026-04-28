@@ -49,5 +49,8 @@ export class DonationsService {
       }
     });
   }
+  getDonationById(id: number): Observable<Donation> {
+    return this._httpClient.get<Donation>(`https://localhost:7055/api/Donation/${id}`);
+  }
 }
 
