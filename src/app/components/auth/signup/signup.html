@@ -24,14 +24,14 @@
             <label>תפקיד:</label>
             <select formControlName="role" class="form-input">
                 <option value="">בחר תפקיד</option>
-                <option value="charity">ארגון צדקה</option>
-                <option value="business">עסק</option>
+                <option value="Charity">ארגון צדקה</option>
+                <option value="Business">עסק</option>
             </select>
             @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
             <span class="error-msg">חובה לבחור תפקיד</span>
             }
         </div>
-        @if (userForm.get('role')?.value === 'charity') {
+        @if (userForm.get('role')?.value === 'Charity') {
             <div class="input-group">
                 <label>סוג מזון:</label>
                 <input formControlName="foodType" class="form-input" />

@@ -17,7 +17,7 @@ export class Signup {
     this.userForm = new FormGroup({
       userName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      role: new FormControl('business', [Validators.required]),
+      role: new FormControl('Business', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       name: new FormControl('', [Validators.required, Validators.minLength(2)]), 
@@ -30,7 +30,7 @@ export class Signup {
       const foodTypeCtrl = this.userForm.get('foodType');
       const quantityCtrl = this.userForm.get('quantity');
 
-      if (role === 'charity') {
+      if (role === 'Charity') {
         foodTypeCtrl?.setValidators([Validators.required]);
         quantityCtrl?.setValidators([Validators.required, Validators.min(1)]);
       } else {

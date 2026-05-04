@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
+import { User } from '../../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class AuthService {
   
 
   signup(userData: any): Observable<any> {
-    if (userData.role === 'business') {
+    if (userData.role === 'Business') {
       return this._httpClient.post('https://localhost:7055/api/Auth/register/business', userData);
     } else {
       return this._httpClient.post('https://localhost:7055/api/Auth/register/charity', userData);

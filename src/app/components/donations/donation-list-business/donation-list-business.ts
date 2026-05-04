@@ -31,4 +31,20 @@ export class DonationListBusiness {
   navigateUpdateDonation(donation: Donation) {
     this._router.navigate(['/donation-update', donation.id]);
   }
-};
+  deleteDonation(donation: Donation) {
+    if (confirm('האם אתה בטוח שברצונך למחוק את התרומה הזו?')) {
+      this._donationService.deleteDonation(donation.id).subscribe({
+        next: () => {
+          this._donationService.getDonations();
+        },
+        error: (err) => {
+          console.error('Error deleting donation:', err);
+        }
+      });
+    }
+  }
+  claimDonation(donation: Donation) {
+    const newDonation = { ...donation, isClaimed: true };
+    this._donationService.updateDonation(newDonation);
+  } 
+}

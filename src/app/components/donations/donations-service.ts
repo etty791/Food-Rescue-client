@@ -42,7 +42,7 @@ export class DonationsService {
       next: (response) => {
         console.log('התרומה נשמרה בהצלחה בשרת!', response);
         this.getDonations();
-        this.view.set('list');
+        this.view.set('list');//TODO:לעדכן לראוטר
       },
       error: (err) => {
         console.error('שגיאה בעדכון התרומה לשרת:', err);
@@ -51,6 +51,9 @@ export class DonationsService {
   }
   getDonationById(id: number): Observable<Donation> {
     return this._httpClient.get<Donation>(`https://localhost:7055/api/Donation/${id}`);
+  }
+  deleteDonation(id: number): Observable<void> {
+    return this._httpClient.delete<void>(`https://localhost:7055/api/Donation/${id}`);
   }
 }
 

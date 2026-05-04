@@ -7,30 +7,24 @@
   <div class="list-container">
     @for (d of donations(); track d.id) {
     <div class="donation-item">
-      <span class="donation-name"><strong>{{ d.foodType }}</strong></span>
+      <h3>סוג מזון: {{ d.foodType }}</h3>
+      <p>כמות: {{ d.quantity }} ק"ג</p>
+      @if (!d.isClaimed) {
       <div class="actions">
-        <button class="btn-details" (click)="navigateDonationDetails(d)">
-          פרטים
+        <button class="btn-delete" (click)="deleteDonation(d)">
+          מחיקה
         </button>
         <button class="btn-edit" (click)="navigateUpdateDonation(d)">
           עריכה
         </button>
       </div>
+      }
+      @else {
+      <button class="btn-claim" (click)="claimDonation(d)">
+        אשר איסוף
+      </button>
+      }
     </div>
     }
   </div>
-
-  <!-- @if (_donationService.view() === 'details') {
-    <app-donation-detail [donation]="selectedDonation()!" (close)="_donationService.view.set('list')" [showClaimButton]="false"/>
-  }
-
-  @if (_donationService.view() === 'add') {
-    <app-donation-add></app-donation-add>
-  }
-  
-  @if (this._donationService.view() === 'edit') {
-    <app-donation-update
-      [donationToEdit]="selectedDonation()!"   (close)="_donationService.view.set('list')"
-    />
-  } -->
 </div>
