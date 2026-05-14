@@ -52,8 +52,16 @@ export class DonationsService {
   getDonationById(id: number): Observable<Donation> {
     return this._httpClient.get<Donation>(`https://localhost:7055/api/Donation/${id}`);
   }
-  deleteDonation(id: number): Observable<void> {
-    return this._httpClient.delete<void>(`https://localhost:7055/api/Donation/${id}`);
+  deleteDonation(id: number): void {
+    this._httpClient.delete<Donation>(`https://localhost:7055/api/Donation/${id}`).subscribe({
+      next: () => {
+        console.log('התרומה נמחקה בהצלחה בשרת!');
+        this.getDonations();
+      },
+      error: (err) => {
+        console.error('שגיאה במחיקת התרומה:', err);
+      }
+    });
   }
 }
 

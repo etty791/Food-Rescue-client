@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './donation-list-business.scss',
 })
 export class DonationListBusiness {
-  donations = computed(() => this._donationService.donations());
+  donations = computed(() => this._donationService.donations())//.filter(d => d.businessID === 1); TODO: להחליף לID של העסק המחובר
   // selectedDonation = signal<Donation | null>(null);
 
   constructor(public _donationService: DonationsService, private _router: Router) { }
@@ -33,18 +33,11 @@ export class DonationListBusiness {
   }
   deleteDonation(donation: Donation) {
     if (confirm('האם אתה בטוח שברצונך למחוק את התרומה הזו?')) {
-      this._donationService.deleteDonation(donation.id).subscribe({
-        next: () => {
-          this._donationService.getDonations();
-        },
-        error: (err) => {
-          console.error('Error deleting donation:', err);
-        }
-      });
+      this._donationService.deleteDonation(donation.id);
     }
   }
-  claimDonation(donation: Donation) {
-    const newDonation = { ...donation, isClaimed: true };
+  confirmDonation(donation: Donation) {
+    const newDonation = { ...donation, status: "collected" };
     this._donationService.updateDonation(newDonation);
   } 
 }
