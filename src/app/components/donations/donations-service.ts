@@ -62,7 +62,7 @@ export class DonationsService {
     });
   }
   claimDonation(donation: Donation) {
-    this._httpClient.put(`https://localhost:7055/api/Donation/claim/${donation.id}`, donation).subscribe({
+    this._httpClient.put(`https://localhost:7055/api/Donation/claim/${donation.id}`,{}).subscribe({
       next: (response) => {
         console.log('התרומה נclaimed בהצלחה בשרת!', response);
         this.getDonations();

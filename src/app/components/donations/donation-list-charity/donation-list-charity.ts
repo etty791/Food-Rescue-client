@@ -1,6 +1,5 @@
 import { Component,computed, signal } from '@angular/core';
 import { Donation } from '../../../../models/donation.model'; 
-import { DonationDetail } from '../donation-detail/donation-detail'; 
 import { DonationsService } from '../donations-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
