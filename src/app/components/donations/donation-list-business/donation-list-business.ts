@@ -2,7 +2,6 @@ import { Component, computed, signal } from '@angular/core';
 import { DonationsService } from '../donations-service';
 import { Donation } from '../../../../models/donation.model';
 import { DonationAdd } from '../donation-add/donation-add';
-import { DonationDetail } from '../donation-detail/donation-detail';
 import { DonationUpdate } from '../donation-update/donation-update';
 import { error } from 'console';
 import { Router } from '@angular/router';
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-donation-list-business',
-  imports: [DonationAdd, DonationDetail, DonationUpdate],
+  imports: [DonationAdd, DonationUpdate],
   templateUrl: './donation-list-business.html',
   styleUrl: './donation-list-business.scss',
 })
