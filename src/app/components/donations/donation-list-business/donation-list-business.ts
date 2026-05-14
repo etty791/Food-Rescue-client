@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './donation-list-business.scss',
 })
 export class DonationListBusiness {
-  donations = computed(() => this._donationService.donations())//.filter(d => d.businessID === 1); TODO: להחליף לID של העסק המחובר
+  donations = computed(() => this._donationService.donations())//.filter(d => d.businessId === 1); TODO: להחליף לID של העסק המחובר
   // selectedDonation = signal<Donation | null>(null);
 
   constructor(public _donationService: DonationsService, private _router: Router) { }
