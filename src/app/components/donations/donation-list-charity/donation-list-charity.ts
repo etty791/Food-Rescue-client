@@ -3,10 +3,11 @@ import { Donation } from '../../../../models/donation.model';
 import { DonationDetail } from '../donation-detail/donation-detail'; 
 import { DonationsService } from '../donations-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-donation-list-charity',
-  imports: [DonationDetail], 
+  imports: [DatePipe], 
   templateUrl: './donation-list-charity.html',
   styleUrl: './donation-list-charity.scss'
 })
@@ -17,12 +18,6 @@ export class DonationListCharityComponent {
     this._donationService.getDonations();
   }
 
-  markAsClaimed(donationId: number) {
-    const foundDonation = this.donations()?.find(d => d.id === donationId);
-    if (foundDonation) {
-      foundDonation.isClaimed = true;
-    }
-  }
    navigateNewDonation() {
     this._router.navigate(['/donation-add']);
   }
@@ -31,5 +26,8 @@ export class DonationListCharityComponent {
   }
   navigateUpdateDonation(donation: Donation) {
     this._router.navigate(['/donation-update', donation.id]);
+  }
+  claimDonation(donation: Donation) {
+    this._donationService.claimDonation(donation);
   }
 }
