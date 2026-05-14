@@ -12,7 +12,7 @@ export class DonationsService {
   donations = signal<Donation[]>([]);
   constructor(private _httpClient: HttpClient) { }
   getDonations() {
-     this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation').subscribe({
+    this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation').subscribe({
       next: (data) => {
         this.donations.set(data);
       },
@@ -22,6 +22,18 @@ export class DonationsService {
     }
     );
   }
+  getMyDonations() {
+    this._httpClient.get<Donation[]>('https://localhost:7055/api/Donation/my').subscribe({
+      next: (data) => {
+        this.donations.set(data);
+      },
+      error: (err) => {
+        console.error('Error fetching donations:', err);
+      }
+    }
+    );
+  }
+
   addDonation(newDonation: Donation) {
     this._httpClient.post('https://localhost:7055/api/Donation', newDonation)
       .subscribe({
@@ -46,6 +58,17 @@ export class DonationsService {
       },
       error: (err) => {
         console.error('שגיאה בעדכון התרומה לשרת:', err);
+      }
+    });
+  }
+  claimDonation(donation: Donation) {
+    this._httpClient.put(`https://localhost:7055/api/Donation/claim/${donation.id}`, donation).subscribe({
+      next: (response) => {
+        console.log('התרומה נclaimed בהצלחה בשרת!', response);
+        this.getDonations();
+      },
+      error: (err) => {
+        console.error('שגיאה בclaim התרומה לשרת:', err);
       }
     });
   }

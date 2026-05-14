@@ -20,7 +20,7 @@ export class DonationListBusiness {
 
   constructor(public _donationService: DonationsService, private _router: Router) { }
   ngOnInit() {
-    this._donationService.getDonations();
+    this._donationService.getMyDonations();
   }
   navigateNewDonation() {
     this._router.navigate(['/donation-add']);
