@@ -35,11 +35,16 @@ export class DonationAdd {
 
     const newDonation: Donation = {
       id: 0,
-      businessID: this._authService.currentUser()?.UserId, 
+      // businessId: this._authService.currentUser()?.UserId, 
       isClaimed: false,
       foodType: formValues.foodType,
       quantity: formValues.quantity,
-      dateTime: formValues.expirationTime
+      dateTime: formValues.expirationTime,
+      business: {
+        name: this._authService.currentUser()?.BusinessName || '',
+        city: this._authService.currentUser()?.City || '',
+        email: this._authService.currentUser()?.Email || '',
+      }//TODO: להוסיף את שדות העסק מהמשתמש הנוכחי (שם, עיר, אימייל) ולשלוח אותם עם התרומה החדשה. אפשר להוסיף שדות אלו למודל Donation או לשלוח אותם בנפרד לשרת.  
     };
 
     this._donationService.addDonation(newDonation);

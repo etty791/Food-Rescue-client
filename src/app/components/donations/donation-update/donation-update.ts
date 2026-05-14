@@ -45,7 +45,7 @@ export class DonationUpdate {
   submit() {
     console.log("Donation to edit:", this.donationToEdit()); // בדוק מה מודפס כאן
     const updatedDonation: Donation = {
-      ...this.donationToEdit(), // 1. מביא את כל השדות המקוריים שאינם בטופס (כמו businessID ו-isClaimed)
+      ...this.donationToEdit(), // 1. מביא את כל השדות המקוריים שאינם בטופס (כמו  ו-isClaimed)
       ...this.editForm.value
     };
 

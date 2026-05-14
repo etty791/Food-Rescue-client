@@ -1,9 +1,13 @@
 <h2>רשימת תרומות זמינות</h2>
 
-    @for (d of donations(); track d.id) {
-<app-donation-detail [donation]="d"></app-donation-detail>
-    }
-@empty {
-  <p>אין תרומות זמינות כרגע.</p>
+@for (d of donations(); track d.id) {
+<!-- <app-donation-detail [donation]="d"></app-donation-detail> -->
+ <h2>{{ d?.business?.name }}</h2>
+<h3>סוג מזון: {{ d?.foodType }}</h3>
+<p>כמות: {{ d?.quantity }} ק"ג</p>
+<p>תאריך תפוגה: {{ d?.dateTime| date: 'dd/MM/yy, HH:mm'}}</p>
+<button (click)="claimDonation(d)">תפוס תרומה</button>
 }
-
+@empty {
+<p>אין תרומות זמינות כרגע.</p>
+}
