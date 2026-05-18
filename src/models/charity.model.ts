@@ -3,8 +3,8 @@ export interface Charity {
   name: string;
   city: string;
   email: string;
-  password?: string;
+  // password?: string;
   foodType: string;
   quantity: number;
-  userName?: string; 
+  // userName?: string; 
 }

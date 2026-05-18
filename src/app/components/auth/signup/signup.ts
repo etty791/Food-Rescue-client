@@ -3,6 +3,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../auth-service';
 import { email } from '@angular/forms/signals';
 import { User } from '../../../../models/user.model';
+import { Business } from '../../../../models/business.model';
+import { BusinessRegister } from '../../../../models/businessRegister.model';
+import { Charity } from '../../../../models/charity.model';
+import { CharityRegister } from '../../../../models/charityRegister.model';
 
 @Component({
   selector: 'app-signup',
@@ -47,25 +51,58 @@ export class Signup {
 
 submit() {
     if (this.userForm.valid) {
-      // אנחנו פשוט מעבירים את כל הערכים של הטופס לסרוויס, והוא כבר יעשה את הבדיקה!
-      this._authService.signup(this.userForm.value).subscribe({
-        
-        next: () => {
-          console.log('הרשמה בוצעה בהצלחה!');
-          alert('נרשמת בהצלחה! כעת תוכל להתחבר.');
-          // אחרי הרשמה מוצלחת, נעביר את המשתמש למסך ההתחברות
-          // this.router.navigate(['/login']); 
-        },
 
-        error: (err) => {
-          console.error('שגיאה בהרשמה:', err);
-          // אם השרת מחזיר שגיאה (למשל אם שם המשתמש כבר קיים - זוכרת שעשינו את זה ב-C#?)
-          alert('התרחשה שגיאה בהרשמה. ייתכן ששם המשתמש כבר תפוס.');
-        }
-        
-      });
+      const userObj: User = {
+      userName: this.userForm.value.userName,
+      password: this.userForm.value.password,
+      role: this.userForm.value.role
+    };
+
+    let requestPayload;
+
+    // 2. אריזה לפי סוג התפקיד
+    if (this.userForm.value.role === 'Business') {
+      const businessObj: Business = {
+        name: this.userForm.value.name,
+        city: this.userForm.value.city,
+        email: this.userForm.value.email
+      };
+
+      // אריזה במודל BusinessRegister
+      requestPayload = {
+        business: businessObj,
+        user: userObj
+      } as BusinessRegister;
+
     } else {
-      // אופציונלי: רק כדי שהמשתמש ידע שהוא פספס משהו
+      const charityObj: Charity = {
+        name: this.userForm.value.name,
+        city: this.userForm.value.city,
+        email: this.userForm.value.email,
+        foodType: this.userForm.value.foodType,
+        quantity: this.userForm.value.quantity
+      };
+
+      // אריזה במודל CharityRegister
+      requestPayload = {
+        charity: charityObj,
+        user: userObj
+      } as CharityRegister;
+    }
+
+    // 3. שליחה לסרוויס
+    this._authService.signup(requestPayload).subscribe({
+      next: () => {
+        console.log('הרשמה בוצעה בהצלחה!');
+        alert('נרשמת בהצלחה! כעת תוכל להתחבר.');
+      },
+      error: (err) => {
+        console.error('שגיאה בהרשמה:', err);
+        alert('התרחשה שגיאה בהרשמה. ייתכן ששם המשתמש כבר תפוס.');
+      }
+    });
+
+    } else {
       this.userForm.markAllAsTouched(); 
     }
   }

@@ -22,7 +22,7 @@ export class AuthService {
   
 
   signup(userData: any): Observable<any> {
-    if (userData.role === 'Business') {
+    if (userData.user.role === 'Business') {
       return this._httpClient.post('https://localhost:7055/api/Auth/register/business', userData);
     } else {
       return this._httpClient.post('https://localhost:7055/api/Auth/register/charity', userData);

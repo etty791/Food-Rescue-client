@@ -15,4 +15,12 @@ export class Header {
     this._authService.currentUser.set(null);
     this._router.navigate(['/login']);
   }
+  navigateToUpdate(){
+    if(this._authService.currentUser()?.Role === 'Business'){
+      this._router.navigate(['/business-update']);
+    }
+    else{
+      this._router.navigate(['/charity-update']);
+    }
+  }
 }

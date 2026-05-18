@@ -3,6 +3,4 @@ export interface Business {
   name: string;
   city: string;
   email: string;
-  password?: string; 
-  userName?: string; 
 }

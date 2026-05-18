@@ -1,1 +1,39 @@
-<p>business-update works!</p>
+<div class="form-card">
+    <div class="header">
+        <h3>עריכת פרטי עסק תורם</h3>
+    </div>
+
+    @if (businessToEdit()) {
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
+        
+        <div class="input-group">
+            <label>שם העסק:</label>
+            <input formControlName="name" class="form-input" />
+            @if (editForm.get('name')?.invalid && editForm.get('name')?.touched) {
+            <span class="error-msg">השם קצר מדי או חסר</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>עיר:</label>
+            <input formControlName="city" class="form-input" />
+            @if (editForm.get('city')?.invalid && editForm.get('city')?.touched) {
+            <span class="error-msg">שם העיר קצר מדי או חסר</span>
+            }
+        </div>
+
+        <div class="input-group">
+            <label>כתובת אימייל:</label>
+            <input formControlName="email" type="email" class="form-input" />
+            @if (editForm.get('email')?.invalid && editForm.get('email')?.touched) {
+            <span class="error-msg">יש להזין כתובת אימייל תקינה</span>
+            }
+        </div>
+
+        <div class="footer-actions">
+            <button type="submit" class="btn-save" [disabled]="editForm.invalid">שמור שינויים</button>
+            <button type="button" class="btn-cancel" (click)="navigateBack()">ביטול</button>
+        </div>
+    </form>
+    }
+</div>

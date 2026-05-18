@@ -5,6 +5,8 @@ import { DonationListBusiness } from './components/donations/donation-list-busin
 import { DonationUpdate } from './components/donations/donation-update/donation-update';
 import { Signup } from './components/auth/signup/signup';
 import { Login } from './components/auth/login/login';
+import { CharityUpdate } from './components/charities/charity-update/charity-update';
+import { BusinessUpdate } from './components/businesses/business-update/business-update';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -14,6 +16,8 @@ export const routes: Routes = [
     {path:'donation-list-charity', component:DonationListCharityComponent},
     {path:'donation-list-business', component:DonationListBusiness},
     {path:'donation-update/:id', component:DonationUpdate},
+    {path:'charity-update', component:CharityUpdate},
+    {path:'business-update', component:BusinessUpdate},
     {path: '**', redirectTo: 'login'}
 
 ];
