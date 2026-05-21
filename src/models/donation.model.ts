@@ -1,11 +1,17 @@
+export type DonationStatus = 'Available' | 'Claimed' | 'Collected';
 export interface Donation {
   id: number;
-  charityId?: number;
+  // charityId?: number;
   foodType: string;
   quantity: number; 
   dateTime: Date; 
-  isClaimed: boolean;
+  status: DonationStatus;
   business?: {
+    name: string;
+    city: string;
+    email: string;
+  };
+  charity?: {
     name: string;
     city: string;
     email: string;

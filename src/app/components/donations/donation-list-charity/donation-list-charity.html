@@ -1,22 +1,21 @@
 <h2>רשימת תרומות זמינות</h2>
 
-@for (d of donations(); track d.id) {
-@if (!d.isClaimed) {
+@for (d of claimedDonations(); track d.id) {
+    <h2>{{ d?.business?.name }}</h2>
+    <h3>סוג מזון: {{ d?.foodType }}</h3>
+    <p>כמות: {{ d?.quantity }} ק"ג</p>
+    <p>תאריך אחרון לאיסוף: {{ d?.dateTime| date: 'dd/MM/yy, HH:mm'}}</p>
+    <button (click)="confirmDonation(d)">אשר איסוף</button>
+}
+@for (d of availableDonations(); track d.id) {
+
     <h2>{{ d?.business?.name }}</h2>
     <h3>סוג מזון: {{ d?.foodType }}</h3>
     <p>כמות: {{ d?.quantity }} ק"ג</p>
     <p>תאריך תפוגה: {{ d?.dateTime| date: 'dd/MM/yy, HH:mm'}}</p>
     <button (click)="claimDonation(d)">תפוס תרומה</button>
-}
-@else {
-    <h2>{{ d?.business?.name }}</h2>
-    <h3>סוג מזון: {{ d?.foodType }}</h3>
-    <p>כמות: {{ d?.quantity }} ק"ג</p>
-    <p>תאריך איסוף: {{ d?.dateTime| date: 'dd/MM/yy, HH:mm'}}</p>
-    <p>סטטוס: מחכה לאיסופךה</p>
-}
+
 }
 @empty {
 <p>אין תרומות זמינות כרגע.</p>
-
 }

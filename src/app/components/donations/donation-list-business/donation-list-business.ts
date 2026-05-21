@@ -3,9 +3,8 @@ import { DonationsService } from '../donations-service';
 import { Donation } from '../../../../models/donation.model';
 import { DonationAdd } from '../donation-add/donation-add';
 import { DonationUpdate } from '../donation-update/donation-update';
-import { error } from 'console';
+import { error, log } from 'console';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-donation-list-business',
@@ -14,12 +13,16 @@ import { Router } from '@angular/router';
   styleUrl: './donation-list-business.scss',
 })
 export class DonationListBusiness {
-  donations = computed(() => this._donationService.donations())//.filter(d => d.businessId === 1); TODO: להחליף לID של העסק המחובר
-  // selectedDonation = signal<Donation | null>(null);
 
+claimedDonations = computed(() => this._donationService.claimedDonations());
+availableDonations = computed(() => this._donationService.availableDonations());
   constructor(public _donationService: DonationsService, private _router: Router) { }
   ngOnInit() {
-    this._donationService.getMyDonations();
+    this._donationService.getDonations();
+    console.log('All Donations:', this._donationService.donations());
+    console.log('Available Donations:', this.availableDonations());
+    console.log('Claimed Donations:', this.claimedDonations());
+    
   }
   navigateNewDonation() {
     this._router.navigate(['/donation-add']);
@@ -36,7 +39,6 @@ export class DonationListBusiness {
     }
   }
   confirmDonation(donation: Donation) {
-    const newDonation = { ...donation, status: "collected" };
-    this._donationService.updateDonation(newDonation);
+      this._donationService.collectDonation(donation);
   } 
 }

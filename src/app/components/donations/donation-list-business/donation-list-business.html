@@ -5,11 +5,20 @@
   </div>
 
   <div class="list-container">
-    @for (d of donations(); track d.id) {
+    @for (d of claimedDonations(); track d.id) {
+    <div class="donation-item claimed">
+      <h3>סוג מזון: {{ d.foodType }}</h3>
+      <p>כמות: {{ d.quantity }} ק"ג</p>
+      <p>נלקחה על ידי: {{ d.charity?.name }}</p>
+      <button class="btn-claim" (click)="confirmDonation(d)">
+        אשר איסוף
+      </button>
+    </div>
+    }
+    @for (d of availableDonations(); track d.id) {
     <div class="donation-item">
       <h3>סוג מזון: {{ d.foodType }}</h3>
       <p>כמות: {{ d.quantity }} ק"ג</p>
-      @if (!d.isClaimed) {
       <div class="actions">
         <button class="btn-delete" (click)="deleteDonation(d)">
           מחיקה
@@ -18,13 +27,8 @@
           עריכה
         </button>
       </div>
-      }
-      @else {
-      <button class="btn-claim" (click)="confirmDonation(d)">
-        אשר איסוף
-      </button>
-      }
     </div>
     }
+
   </div>
 </div>

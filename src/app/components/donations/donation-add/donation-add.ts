@@ -18,7 +18,7 @@ function futureDateTimeValidator(control: AbstractControl): ValidationErrors | n
   styleUrl: './donation-add.scss',
 })
 export class DonationAdd {
-  constructor(public _donationService: DonationsService,private _authService: AuthService) { }
+  constructor(public _donationService: DonationsService, private _authService: AuthService) { }
 
   cancel = output<void>();
   addForm!: FormGroup;
@@ -36,7 +36,7 @@ export class DonationAdd {
     const newDonation: Donation = {
       id: 0,
       // businessId: this._authService.currentUser()?.UserId, 
-      isClaimed: false,
+      status: 'Available',
       foodType: formValues.foodType,
       quantity: formValues.quantity,
       dateTime: formValues.expirationTime,
@@ -48,7 +48,10 @@ export class DonationAdd {
     };
 
     this._donationService.addDonation(newDonation);
-    this._donationService.view.set('list');
+    // this._donationService.view.set('list');
+  }
+  navigateBack() {
+    // this._donationService.view.set('list');
   }
 
 }
